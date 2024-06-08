@@ -1,0 +1,33 @@
+/* styles.css */
+
+nav {
+    background: linear-gradient(90deg, #1E3A8A 0%, #1D4ED8 50%, #2563EB 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+nav a:hover {
+    color: #E5E7EB; /* Light gray */
+}
+
+nav button {
+    background-color: #1E3A8A;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+nav button:hover {
+    background-color: #1D4ED8;
+}
+
+@media (max-width: 640px) {
+    nav button {
+        background-color: #2563EB;
+    }
+}
