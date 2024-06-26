@@ -34,6 +34,15 @@
                     <x-nav-link :href="route('servicios.create')" :active="request()->routeIs('servicios.create')" class="text-white hover:text-gray-300">
                         {{ __('Agregar Servicio') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('secretarias.index')" :active="request()->routeIs('secretarias.index')" class="text-white hover:text-gray-300">
+                        {{ __('Secretarias') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('secretarias.create')" :active="request()->routeIs('secretarias.create')" class="text-white hover:text-gray-300">
+                        {{ __('Agregar Secretaria') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('citas.index')" :active="request()->routeIs('citas.index')" class="text-white hover:text-gray-300">
+                        {{ __('Citas') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -90,6 +99,27 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('doctores.create')" :active="request()->routeIs('doctores.create')" class="text-white hover:bg-blue-700">
                 {{ __('Agregar Doctor') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('pacientes.index')" :active="request()->routeIs('pacientes.index')" class="text-white hover:bg-blue-700">
+                {{ __('Pacientes') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('pacientes.create')" :active="request()->routeIs('pacientes.create')" class="text-white hover:bg-blue-700">
+                {{ __('Agregar Paciente') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('servicios.index')" :active="request()->routeIs('servicios.index')" class="text-white hover:bg-blue-700">
+                {{ __('Servicios') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('servicios.create')" :active="request()->routeIs('servicios.create')" class="text-white hover:bg-blue-700">
+                {{ __('Agregar Servicio') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('secretarias.index')" :active="request()->routeIs('secretarias.index')" class="text-white hover:bg-blue-700">
+                {{ __('Secretarias') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('secretarias.create')" :active="request()->routeIs('secretarias.create')" class="text-white hover:bg-blue-700">
+                {{ __('Agregar Secretaria') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('citas.index')" :active="request()->routeIs('citas.index')" class="text-white hover:bg-blue-700">
+                {{ __('Citas') }}
             </x-responsive-nav-link>
         </div>
 

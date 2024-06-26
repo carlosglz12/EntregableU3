@@ -2,79 +2,57 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Servicios;
+use App\Models\Servicio;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse; 
 
 class ServiciosController extends Controller
 {
-    // Mostrar vista register cuando se de clic en crear 
-    public function index(): View
+    public function index()
     {
-        $servicios = Servicios::all();
-        return view('servicios.servicios', ['servicios' => $servicios]);
+        $servicios = Servicio::all();
+        return view('servicios.servicios', compact('servicios'));
     }
 
-    // Método para mostrar el formulario de edición
-    public function edit($id): View
-    {
-        $servicio = Servicios::findOrFail($id);
-        return view('servicios.edit', compact('servicio'));
-    }
-
-    // Formulario de crear servicio
-    public function create(): View
+    public function create()
     {
         return view('servicios.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
-            'descripcion' => ['required', 'string', 'max:255'],
-            'precio' => ['required', 'int'],
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string|max:255',
+            'precio' => 'required|numeric',
         ]);
 
-        $servicio = Servicios::create([
-            'nombre' => $request->nombre,
-            'descripcion' => $request->descripcion,
-            'precio' => $request->precio,
-        ]);
+        Servicio::create($request->all());
 
-        return redirect()->route('servicios.index')->with('success', 'Nuevo servicio agregado.');
+        return redirect()->route('servicios.index')->with('success', 'Servicio agregado exitosamente.');
     }
 
-    // Método para actualizar el servicio
-    public function update(Request $request, $id): RedirectResponse
+    public function edit(Servicio $servicio)
+    {
+        return view('servicios.edit', compact('servicio'));
+    }
+
+    public function update(Request $request, Servicio $servicio)
     {
         $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
-            'descripcion' => ['required', 'string', 'max:255'],
-            'precio' => ['required', 'int'],
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string|max:255',
+            'precio' => 'required|numeric',
         ]);
 
-        $servicio = Servicios::findOrFail($id);
         $servicio->update($request->all());
 
-        return redirect()->route('servicios.index')->with('success', 'Servicio actualizado.');
+        return redirect()->route('servicios.index')->with('success', 'Servicio actualizado exitosamente.');
     }
 
-    // Método para eliminar el servicio
-    public function destroy($id): RedirectResponse
+    public function destroy(Servicio $servicio)
     {
-        $servicio = Servicios::find($id);
-        if ($servicio) {
-            $servicio->delete();
-            return redirect()->route('servicios.index')->with('success', 'Servicio eliminado exitosamente.');
-        }
-        return redirect()->route('servicios.index')->with('error', 'Servicio no encontrado.');
+        $servicio->delete();
+
+        return redirect()->route('servicios.index')->with('success', 'Servicio eliminado exitosamente.');
     }
 }
-
-?>

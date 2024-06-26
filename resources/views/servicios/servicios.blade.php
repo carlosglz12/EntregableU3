@@ -1,47 +1,67 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Servicio
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Descripción
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Precio
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Acción
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($servicios as $servicio)
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ $servicio->nombre }}
-                </th>
-                <td class="px-6 py-4">
-                    {{ $servicio->descripcion }}
-                </td>
-                <td class="px-6 py-4">
-                    {{ $servicio->precio }}
-                </td>
-                <td class="px-6 py-4">
-                    <a href="{{ route('servicios.edit', $servicio->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
-                    <form action="{{ route('servicios.destroy', $servicio->id) }}" method="POST" style="display:inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+<button id="myBtn" class="button">Agregar Servicio</button>
+<table>
+    <thead>
+        <tr>
+            <th>Servicio</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($servicios as $servicio)
+        <tr>
+            <td>{{ $servicio->nombre }}</td>
+            <td>{{ $servicio->descripcion }}</td>
+            <td>{{ $servicio->precio }}</td>
+            <td>
+                <a href="{{ route('servicios.edit', $servicio->id) }}" class="button edit-button">Editar</a>
+                <form action="{{ route('servicios.destroy', $servicio->id) }}" method="POST" style="display:inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="button delete-button">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
+<!-- Ventana Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Registrar Servicio</h2>
+        <form method="POST" action="{{ route('servicios.store') }}">
+            @csrf
+            <input type="text" name="nombre" placeholder="Nombre del Servicio" required>
+            <input type="text" name="descripcion" placeholder="Descripción" required>
+            <input type="number" name="precio" placeholder="Precio" required>
+            <button class="button" type="submit">Registrar</button>
+        </form>
+    </div>
 </div>
+
+<script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 @endsection
