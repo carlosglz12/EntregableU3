@@ -1,37 +1,52 @@
 @extends('layouts.app')
-
-@section('title', 'Agendar Cita')
+<link rel="stylesheet" href="{{ asset('css/formularios.css') }}">
 
 @section('content')
-<form class="max-w-md mx-auto" method="POST" action="{{ route('citas.store') }}">
+<form class="custom-form" method="POST" action="{{ route('citas.store') }}">
     @csrf
-    <input type="hidden" name="paciente_id" value="{{ $paciente->id }}">
-
-    <div class="mb-5">
-        <label for="nombres" class="block mb-2 text-sm font-medium text-gray-900">Nombres</label>
-        <input type="text" id="nombres" name="nombres" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $paciente->nombres }}" readonly />
+    <h3>Agendar Cita</h3>
+    <div class="form-group">
+        <div class="form-item mb-5">
+            <label for="paciente_id">Paciente</label>
+            <select id="paciente_id" name="paciente_id" required>
+                <option value="">Seleccione un paciente</option>
+                @foreach ($pacientes as $paciente)
+                    <option value="{{ $paciente->id }}">{{ $paciente->nombres }} {{ $paciente->apellidos }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-item mb-5">
+            <label for="doctor_id">Doctor</label>
+            <select id="doctor_id" name="doctor_id" required>
+                <option value="">Seleccione un doctor</option>
+                @foreach ($doctores as $doctor)
+                    <option value="{{ $doctor->id }}">{{ $doctor->nombres }} {{ $doctor->apellidos }}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
-
-    <div class="mb-5">
-        <label for="apellidos" class="block mb-2 text-sm font-medium text-gray-900">Apellidos</label>
-        <input type="text" id="apellidos" name="apellidos" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $paciente->apellidos }}" readonly />
+    <div class="form-group">
+        <div class="form-item mb-5">
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" name="fecha" required />
+        </div>
+        <div class="form-item mb-5">
+            <label for="hora">Hora</label>
+            <select id="hora" name="hora" required>
+                <option value="">Seleccione una hora</option>
+                @for ($i = 0; $i < 24*2; $i++)
+                    @php
+                        $time = strtotime('00:00') + $i * 30 * 60;
+                        $timeDisplay = date('h:i A', $time);
+                        $timeValue = date('H:i:s', $time);
+                    @endphp
+                    <option value="{{ $timeValue }}">{{ $timeDisplay }}</option>
+                @endfor
+            </select>
+        </div>
     </div>
-
-    <div class="mb-5">
-        <label for="correo" class="block mb-2 text-sm font-medium text-gray-900">Correo</label>
-        <input type="email" id="correo" name="correo" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $paciente->correo }}" readonly />
+    <div class="flex justify-center">
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Agendar</button>
     </div>
-
-    <div class="mb-5">
-        <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900">Teléfono</label>
-        <input type="text" id="telefono" name="telefono" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $paciente->telefono }}" readonly />
-    </div>
-
-    <div class="mb-5">
-        <label for="fecha_hora" class="block mb-2 text-sm font-medium text-gray-900">Fecha y Hora</label>
-        <input type="datetime-local" id="fecha_hora" name="fecha_hora" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
-    </div>
-
-    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Agendar</button>
 </form>
 @endsection

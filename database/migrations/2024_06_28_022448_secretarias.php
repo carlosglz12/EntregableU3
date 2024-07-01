@@ -1,25 +1,27 @@
-<?php
 
+<?php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePacientesTable extends Migration
+return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
-        Schema::create('pacientes', function (Blueprint $table) {
+        Schema::create('secretarias', function (Blueprint $table) {
             $table->id();
             $table->string('nombres');
             $table->string('apellidos');
             $table->string('correo')->unique();
-            $table->string('telefono');
+            $table->string('password');
+            $table->bigInteger('telefono');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
 
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('pacientes');
+        Schema::dropIfExists('secretarias');
     }
-}
+};

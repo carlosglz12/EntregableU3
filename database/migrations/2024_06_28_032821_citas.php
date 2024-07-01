@@ -4,14 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCitasTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
-            $table->timestamp('fecha_hora');
+            $table->foreignId('doctor_id')->constrained('doctores')->onDelete('cascade');
+            $table->date('fecha');
+            $table->time('hora');
+            $table->string('estado')->default('en proceso');
             $table->timestamps();
         });
     }
@@ -20,4 +23,4 @@ class CreateCitasTable extends Migration
     {
         Schema::dropIfExists('citas');
     }
-}
+};

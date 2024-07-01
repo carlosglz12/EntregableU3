@@ -15,6 +15,10 @@ class Pacientes extends Authenticatable
         'apellidos',
         'correo',
         'telefono',
+        'telefono_emergencia',
+        'fecha_nacimiento',
+        'genero',
+        'notas'
     ];
 
     protected $hidden = [
@@ -23,6 +27,6 @@ class Pacientes extends Authenticatable
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'fecha_nacimiento' => 'date',
     ];
 }

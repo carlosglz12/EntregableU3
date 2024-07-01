@@ -30,19 +30,19 @@ class SecretariaController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:secretarias'],
+            'nombres' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'correo' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:secretarias'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone' => ['required', 'string', 'max:20'],
+            'telefono' => ['required', 'int'],
         ]);
 
         $secretaria = Secretaria::create([
-            'name' => $request->name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
+            'nombres' => $request->nombres,
+            'apellidos' => $request->apellidos,
+            'correo' => $request->correo,
             'password' => Hash::make($request->password),
-            'phone' => $request->phone,
+            'telefono' => $request->telefono,
         ]);
 
         return redirect()->route('secretarias.index')->with('success', 'Nueva secretaria agregada.');
@@ -51,17 +51,19 @@ class SecretariaController extends Controller
     public function update(Request $request, Secretaria $secretaria): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:secretarias,email,' . $secretaria->id],
-            'phone' => ['required', 'string', 'max:20'],
+            'nombres' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'correo' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:secretarias'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'telefono' => ['required', 'int'],
         ]);
 
         $secretaria->update([
-            'name' => $request->name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
+            'nombres' => $request->nombres,
+            'apellidos' => $request->apellidos,
+            'correo' => $request->correo,
+            'password' => Hash::make($request->password),
+            'telefono' => $request->telefono,
         ]);
 
         return redirect()->route('secretarias.index')->with('success', 'Datos de la secretaria actualizados.');

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Gestión de Secretarias')
+<link rel="stylesheet" href="{{ asset('css/tablas.css') }}">
 
 @section('content')
-<button id="myBtn" class="button">Agregar Secretaria</button>
+<a href="{{ route('secretarias.create') }}" class="button edit-button">Agregar Secretaria</a>
 <table>
     <thead>
         <tr>
@@ -19,10 +19,10 @@
         @foreach ($secretarias as $secretaria)
         <tr>
             <td>{{ $secretaria->id }}</td>
-            <td>{{ $secretaria->name }}</td>
-            <td>{{ $secretaria->last_name }}</td>
-            <td>{{ $secretaria->email }}</td>
-            <td>{{ $secretaria->phone }}</td>
+            <td>{{ $secretaria->nombres }}</td>
+            <td>{{ $secretaria->lapellidos }}</td>
+            <td>{{ $secretaria->correo }}</td>
+            <td>{{ $secretaria->telefono }}</td>
             <td>
                 <div class="action-buttons">
                     <a href="{{ route('secretarias.edit', $secretaria->id) }}" class="button edit-button">Editar</a>
@@ -38,21 +38,4 @@
     </tbody>
 </table>
 
-<!-- Ventana Modal -->
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Registrar Secretaria</h2>
-        <form method="POST" action="{{ route('secretarias.store') }}">
-            @csrf
-            <input type="text" name="name" placeholder="Nombres" required>
-            <input type="text" name="last_name" placeholder="Apellidos" required>
-            <input type="email" name="email" placeholder="Correo" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <input type="password" name="password_confirmation" placeholder="Confirmar contraseña" required>
-            <input type="text" name="phone" placeholder="Teléfono" required>
-            <button class="button" type="submit">Registrar</button>
-        </form>
-    </div>
-</div>
 @endsection

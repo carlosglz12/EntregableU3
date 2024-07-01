@@ -11,11 +11,19 @@ class Cita extends Model
 
     protected $fillable = [
         'paciente_id',
-        'fecha_hora',
+        'doctor_id',
+        'fecha',
+        'hora',
+        'estado'
     ];
 
     public function paciente()
     {
-        return $this->belongsTo(Pacientes::class, 'paciente_id');
+        return $this->belongsTo(Pacientes::class);
+    }
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctores::class);
     }
 }

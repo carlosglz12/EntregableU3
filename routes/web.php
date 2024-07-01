@@ -56,8 +56,14 @@ Route::middleware('auth')->group(function () {
 
     // Rutas para Citas
     Route::get('/citas', [CitaController::class, 'index'])->name('citas.index');
-    Route::get('/citas/crear/{paciente}', [CitaController::class, 'create'])->name('citas.create');
+    Route::get('/citas/crear', [CitaController::class, 'create'])->name('citas.create');
     Route::post('/citas', [CitaController::class, 'store'])->name('citas.store');
+    Route::get('/citas/tablacitas', [CitaController::class, 'tablacitas'])->name('citas.tablacitas');
+    Route::get('/citas/{cita}/editar', [CitaController::class, 'editar'])->name('citas.editar');
+    Route::put('/citas/{cita}', [CitaController::class, 'update'])->name('citas.update');
+    Route::delete('/citas/{cita}', [CitaController::class, 'eliminar'])->name('citas.eliminar');
+
+
 });
 
 // Rutas de autenticación para doctores

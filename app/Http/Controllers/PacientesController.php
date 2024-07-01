@@ -21,12 +21,14 @@ class PacientesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombres' => 'required|string|max:255',
-            'apellidos' => 'required|string|max:255',
-            'correo' => 'required|string|email|max:255|unique:pacientes',
-            'telefono' => 'nullable|numeric',
-            'direccion' => 'nullable|string|max:255',
-            'edad' => 'nullable|numeric',
+            'nombres' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'correo' => ['required', 'string', 'email', 'max:255', 'unique:pacientes'],
+            'telefono' => ['required', 'integer'],
+            'telefono_emergencia' => ['required', 'integer'],
+            'genero' => ['required', 'string'],
+            'fecha_nacimiento' => ['required', 'date'],
+            'notas' => ['nullable', 'string'],
         ]);
 
         Pacientes::create([
@@ -34,8 +36,10 @@ class PacientesController extends Controller
             'apellidos' => $request->apellidos,
             'correo' => $request->correo,
             'telefono' => $request->telefono,
-            'direccion' => $request->direccion,
-            'edad' => $request->edad,
+            'telefono_emergencia' => $request->telefono_emergencia,
+            'genero' => $request->genero,
+            'fecha_nacimiento' => $request->fecha_nacimiento,
+            'notas' => $request->notas,
         ]);
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente creado con éxito.');
@@ -49,12 +53,14 @@ class PacientesController extends Controller
     public function update(Request $request, Pacientes $paciente)
     {
         $request->validate([
-            'nombres' => 'required|string|max:255',
-            'apellidos' => 'required|string|max:255',
-            'correo' => 'required|string|email|max:255|unique:pacientes,correo,' . $paciente->id,
-            'telefono' => 'nullable|numeric',
-            'direccion' => 'nullable|string|max:255',
-            'edad' => 'nullable|numeric',
+            'nombres' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'correo' => ['required', 'string', 'email', 'max:255', 'unique:pacientes'],
+            'telefono' => ['required', 'integer'],
+            'telefono_emergencia' => ['required', 'integer'],
+            'genero' => ['required', 'string'],
+            'fecha_nacimiento' => ['required', 'date'],
+            'notas' => ['nullable', 'string'],
         ]);
 
         $paciente->update([
@@ -62,8 +68,10 @@ class PacientesController extends Controller
             'apellidos' => $request->apellidos,
             'correo' => $request->correo,
             'telefono' => $request->telefono,
-            'direccion' => $request->direccion,
-            'edad' => $request->edad,
+            'telefono_emergencia' => $request->telefono_emergencia,
+            'genero' => $request->genero,
+            'fecha_nacimiento' => $request->fecha_nacimiento,
+            'notas' => $request->notas,
         ]);
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado con éxito.');

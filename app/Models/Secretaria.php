@@ -10,19 +10,15 @@ class Secretaria extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name',
-        'last_name',
-        'email',
+        'nombres',
+        'apellidos',
+        'correo',
         'password',
-        'phone',
+        'telefono'
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 }

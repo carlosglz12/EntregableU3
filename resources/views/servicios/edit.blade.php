@@ -1,8 +1,9 @@
 @extends('layouts.app')
+<link rel="stylesheet" href="{{ asset('css/formularios.css') }}">
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <form class="max-w-lg mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="{{ route('servicios.update', $servicio->id) }}">
+    <form class="custom-form" method="POST" action="{{ route('servicios.update', $servicio->id) }}">
         @csrf
         @method('PUT')
         <div class="mb-5">

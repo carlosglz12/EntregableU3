@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Gestión de Pacientes')
+<link rel="stylesheet" href="{{ asset('css/tablas.css') }}">
 
 @section('content')
+<a href="{{ route('pacientes.create') }}" class="button edit-button">Agregar Paciente</a>
 <table>
     <thead>
         <tr>
@@ -11,6 +12,7 @@
             <th>Apellidos</th>
             <th>Correo</th>
             <th>Teléfono</th>
+            <th>Teléfono_Emergencia</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -22,6 +24,7 @@
             <td>{{ $paciente->apellidos }}</td>
             <td>{{ $paciente->correo }}</td>
             <td>{{ $paciente->telefono }}</td>
+            <td>{{ $paciente->telefono_emergencia }}</td>
             <td>
                 <div class="action-buttons">
                     <a href="{{ route('pacientes.edit', $paciente->id) }}" class="button edit-button">Editar</a>

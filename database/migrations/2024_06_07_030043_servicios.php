@@ -13,7 +13,6 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('descripcion');
             $table->integer('precio');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

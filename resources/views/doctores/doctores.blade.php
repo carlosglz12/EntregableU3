@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Gestión de Médicos')
+<link rel="stylesheet" href="{{ asset('css/tablas.css') }}">
 
 @section('content')
-<button id="myBtn" class="button">Agregar Médico</button>
+<a href="{{ route('doctores.create') }}" class="button edit-button">Agregar Médico</a>
 <table>
     <thead>
         <tr>
@@ -42,44 +42,4 @@
     </tbody>
 </table>
 
-<!-- Ventana Modal -->
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Registrar Doctor</h2>
-        <form method="POST" action="{{ route('doctores.store') }}">
-            @csrf
-            <input type="text" name="nombres" placeholder="Nombres" required>
-            <input type="text" name="apellidos" placeholder="Apellidos" required>
-            <input type="email" name="correo" placeholder="Correo" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <input type="password" name="password_confirmation" placeholder="Confirmar contraseña" required>
-            <input type="text" name="telefono" placeholder="Teléfono" required>
-            <input type="text" name="especialidad" placeholder="Especialidad" required>
-            <input type="text" name="consultorio" placeholder="Consultorio" required>
-            <button class="button" type="submit">Registrar</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    // Abrir y cerrar la ventana modal
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("myBtn");
-    var span = document.getElementsByClassName("close")[0];
-
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
 @endsection
