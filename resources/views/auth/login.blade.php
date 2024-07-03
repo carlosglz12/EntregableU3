@@ -12,15 +12,15 @@
     <div class="relative min-h-screen sm:flex sm:flex-row justify-center bg-transparent rounded-3xl shadow-xl">
         <div class="flex-col flex self-center lg:px-14 sm:max-w-4xl xl:max-w-md z-10">
             <div class="self-start hidden lg:flex flex-col text-gray-300">
-                <h1 class="my-3 font-semibold text-4xl">Welcome back</h1>
-                <p class="pr-3 text-sm opacity-75">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups</p>
+                <h1 class="my-3 font-semibold text-4xl">Bienvenido</h1>
+                <p class="pr-3 text-sm opacity-75">Inicia sesión para acceder a toda tu gestión médica fácilmente</p>
             </div>
         </div>
         <div class="flex justify-center self-center z-10">
             <div class="p-12 bg-white mx-auto rounded-3xl w-96">
                 <div class="mb-7">
-                    <h3 class="font-semibold text-2xl text-gray-800">Sign In</h3>
-                    <p class="text-gray-400">Don't have an account? <a href="{{ route('register') }}" class="text-sm text-purple-700 hover:text-purple-700">Sign Up</a></p>
+                    <h3 class="font-semibold text-2xl text-gray-800">Inicia sesión</h3>
+                    <p class="text-gray-400">¿No tienes cuenta? <a href="{{ route('register') }}" class="text-sm text-purple-700 hover:text-purple-700">Regístrate</a></p>
                 </div>
                 <div class="space-y-6">
                     <form method="POST" action="{{ route('login') }}">

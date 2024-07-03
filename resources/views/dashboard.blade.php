@@ -1,33 +1,55 @@
 @extends('layouts.app')
 @section('content')
 
-<!-- component -->
-<!--
-  Welcome to Tailwind Play, the official Tailwind CSS playground!
-
-  Everything here works just like it does when you're running Tailwind locally
-  with a real build pipeline. You can customize your config file, use features
-  like `@apply`, or even add third-party plugins.
-
-  Feel free to play with this example if you're just learning, or trash it and
-  start from scratch if you know enough to be dangerous. Have fun!
--->
 <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-slate-100 py-6 sm:py-12">
   <div class="min-h-28 ">
     <div class="max-w-screen-lg mx-auto py-4">
       <h2 class="font-bold text-center text-6xl text-slate-700 font-display">
-        Our Blog Post
+        ¿Qué es U-Medic?
       </h2>
-      <p class="text-center mt-4 font-medium text-slate-500">OUR NEWS FEED</p>
+      <p class="text-center mt-4 font-medium text-slate-500">Todo lo que tienes que saber</p>
       <div class="flex gap-6 mt-20">
-        
+
+      <!-- fotos -->
+      
         <div class="bg-white w-1/3 shadow rounded-lg overflow-hidden">
           <img src="https://loremflickr.com/320/240?random=1" class="object-cover h-52 w-full" alt="">
           <div class="p-6">
-            <span class="block text-slate-400 font-semibold text-sm">16 Juillet 2016</span>
+            <span class="block text-slate-400 font-semibold text-sm">1/07/2024</span>
             <h3 class="mt-3 font-bold text-lg pb-4 border-b border-slate-300">
               <a href="https://play.tailwindcss.com/TGny89rOkl?layout=horizontal">
-              Finding best places to visit in California</a></h3>
+              Clientes satisfechos</a></h3>
+            <div class="flex mt-4 gap-4 items-center">
+              <span class="flex gap-1 items-center text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+                3500
+              </span>
+              <span class="flex gap-1 items-center text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-sky-400 w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                </svg>
+                200
+              </span>
+              <span class="flex gap-1 items-center text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-lime-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                </svg>
+                150
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white w-1/3 shadow rounded-lg overflow-hidden">
+          <img src="https://loremflickr.com/320/240?random=1" class="object-cover h-52 w-full" alt="">
+          <div class="p-6">
+            <span class="block text-slate-400 font-semibold text-sm">1/07/2024</span>
+            <h3 class="mt-3 font-bold text-lg pb-4 border-b border-slate-300">
+              <a href="https://play.tailwindcss.com/TGny89rOkl?layout=horizontal">
+              Doctores satisfechos</a></h3>
             <div class="flex mt-4 gap-4 items-center">
               <span class="flex gap-1 items-center text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -58,44 +80,10 @@
         <div class="bg-white w-1/3 shadow rounded-lg overflow-hidden">
           <img src="https://loremflickr.com/320/240?random=1" class="object-cover h-52 w-full" alt="">
           <div class="p-6">
-            <span class="block text-slate-400 font-semibold text-sm">16 Juillet 2016</span>
+            <span class="block text-slate-400 font-semibold text-sm">1/07/2024</span>
             <h3 class="mt-3 font-bold text-lg pb-4 border-b border-slate-300">
               <a href="https://play.tailwindcss.com/TGny89rOkl?layout=horizontal">
-              Finding best places to visit in California</a></h3>
-            <div class="flex mt-4 gap-4 items-center">
-              <span class="flex gap-1 items-center text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                </svg>
-                35
-              </span>
-              <span class="flex gap-1 items-center text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-sky-400 w-4 h-4">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                </svg>
-
-                20
-              </span>
-              <span class="flex gap-1 items-center text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-lime-500">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                </svg>
-
-
-                15
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white w-1/3 shadow rounded-lg overflow-hidden">
-          <img src="https://loremflickr.com/320/240?random=1" class="object-cover h-52 w-full" alt="">
-          <div class="p-6">
-            <span class="block text-slate-400 font-semibold text-sm">16 Juillet 2016</span>
-            <h3 class="mt-3 font-bold text-lg pb-4 border-b border-slate-300">
-              <a href="https://play.tailwindcss.com/TGny89rOkl?layout=horizontal">
-              Finding best places to visit in California</a></h3>
+              Usuarios satisfechos</a></h3>
             <div class="flex mt-4 gap-4 items-center">
               <span class="flex gap-1 items-center text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -126,30 +114,20 @@
     </div>
   </div>
 </div>
-<!-- component -->
-<!-- component -->
-<!--
-  Welcome to Tailwind Play, the official Tailwind CSS playground!
+<!-- acerca de nosotros -->
 
-  Everything here works just like it does when you're running Tailwind locally
-  with a real build pipeline. You can customize your config file, use features
-  like `@apply`, or even add third-party plugins.
-
-  Feel free to play with this example if you're just learning, or trash it and
-  start from scratch if you know enough to be dangerous. Have fun!
--->
 <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
   <div class="w-full items-center mx-auto max-w-screen-lg">
     <div class="group grid w-full grid-cols-2">
       <div class="pl-16 relative flex items-end flex-col before:block before:absolute before:h-1/6 before:w-4 before:bg-blue-500 before:bottom-0 before:left-0 before:rounded-lg  before:transition-all group-hover:before:bg-orange-300 overflow-hidden">
         <div class="absolute top-0 left-0 bg-blue-500 w-4/6 px-12 py-14 flex flex-col justify-center rounded-xl group-hover:bg-sky-600 transition-all ">
-          <span class="block mb-10 font-bold group-hover:text-orange-300">HERE WE ARE</span>
+          <span class="block mb-10 font-bold group-hover:text-orange-300">Tú eres U-Medic</span>
           <h2 class="text-white font-bold text-3xl">
-          What started as a tiny team mostly dedicated to Air Quality has grown.
+          Una perfecta gestión médica para todos los usuarios
           </h2>
         </div>
         <a class="font-bold text-sm flex mt-2 mb-8 items-center gap-2" href="">
-          <span>MORE ABOUT US</span>
+          <span>Acerca de nosotros</span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
           </svg>
@@ -161,23 +139,19 @@
       <div>
         <div class="pl-12">
           <p class="peer mb-6 text-gray-400">
-            Simply Air Conditioning London are fixed system heating and air conditioning installation specialists. Because we’ve tested all heating and air conditioning unit manufacturers before using them there are no hidden surprises for our customers. We only supply air conditioning units from the leading manufacturers so any system we fit will be of the highest quality. We also thoroughly test every type of unit before supplying..
+          El deseo de hacer las cosas bien nos llevó a crear U-Medic. Sabemos que todos odian el papeleo, pero aman las soluciones eficientes. Con esta página web, podrás gestionar tus propios doctores, crear y administrar pacientes, programar citas, agregar servicios y productos, y mucho más. Además, estamos continuamente mejorando y añadiendo nuevas funciones. Descubre todos los beneficios que U-Medic tiene para ofrecerte y cómo puede contribuir al bienestar de quienes más lo necesitan.
           </p>
-          <p class="mb-6 text-gray-400">
-          We also provide tailored Air Conditioning installation packages. The Air Conditioning systems we install are all inverter driven therefor are energy efficient, stylish & silent both providing cooling and heating. At Zero Degree AC Limited we only use the best brands.
-          </p>
-          <h3 class="mb-4 font-semibold text-xl text-gray-400">Conditioning installation packages</h3>
+          <h3 class="mb-4 font-semibold text-xl text-gray-400">Créditos</h3>
           <ul role="list" class="marker:text-sky-400 list-disc pl-5 space-y-3 text-slate-500">
-            <li>5 cups chopped Porcini mushrooms</li>
-            <li>1/2 cup of olive oil</li>
-            <li>3lb of celery</li>
+            <li>Por: Carlos Bocanegra</li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- component -->
+<!-- extra -->
+ 
 <section>
     <div class="py-16">
         <div class="mx-auto px-6 max-w-6xl text-gray-500">
@@ -191,7 +165,7 @@
                                 </svg>
                                 <span class="w-fit block mx-auto text-5xl font-semibold text-transparent bg-clip-text bg-gradient-to-br from-blue-300 to-pink-600 dark:from-blue-400 dark:to-pink-400">100%</span>
                             </div>
-                            <h2 class="mt-6 text-center font-semibold text-gray-950 dark:text-white text-3xl">Customizable</h2>
+                            <h2 class="mt-6 text-center font-semibold text-gray-950 dark:text-white text-3xl">Intuitivo</h2>
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3 lg:col-span-2 overflow-hidden relative p-8 rounded-xl bg-white border border-gray-200 dark:border-gray-800 dark:bg-gray-900">
@@ -216,7 +190,7 @@
                             </div>
                             <div class="mt-6 text-center relative z-10 space-y-2">
                                 <h2 class="text-lg font-medium text-gray-800 transition group-hover:text-purple-950 dark:text-white">Secure by default</h2>
-                                <p class="dark:text-gray-300 text-gray-700">Provident fugit and vero voluptate. magnam magni doloribus dolores voluptates a sapiente nisi.</p>
+                                <p class="dark:text-gray-300 text-gray-700">Seguridad para todos tus pacientes ya que solamente trabajadores pueden acceder a su información.</p>
                             </div>
                         </div>
                     </div>
@@ -246,8 +220,8 @@
                                 </svg>
                             </div>
                             <div class="mt-14 text-center relative z-10 space-y-2">
-                                <h2 class="text-lg font-medium text-gray-800 transition group-hover:text-purple-950 dark:text-white">Faster than light</h2>
-                                <p class="dark:text-gray-300 text-gray-700">Provident fugit vero voluptate. magnam magni doloribus dolores voluptates inventore nisi.</p>
+                                <h2 class="text-lg font-medium text-gray-800 transition group-hover:text-purple-950 dark:text-white">Venta</h2>
+                                <p class="dark:text-gray-300 text-gray-700">Muestra todos tus productos y servicios que ofreces</p>
                             </div>
                         </div>
                     </div>
@@ -261,7 +235,7 @@
                                     </div>
                                 <div class="space-y-2">
                                     <h2 class="text-lg font-medium text-gray-800 transition group-hover:text-purple-950 dark:text-white">Faster than light</h2>
-                                    <p class="dark:text-gray-300 text-gray-700">Provident fugit vero voluptate. Voluptates a sapiente inventore nisi.</p>
+                                    <p class="dark:text-gray-300 text-gray-700">Accede rápidamente a expedientes, citas, pacientes y más.</p>
                                 </div>
                             </div>
                             <div class="overflow-hidden relative mt-6 sm:mt-auto h-fit -mb-[34px] -mr-[34px] sm:ml-6 py-6 p-6 border rounded-tl-lg dark:bg-white/5 dark:border-white/10">
@@ -295,14 +269,14 @@
                                     </svg>
                                     </div>
                                 <div class="space-y-2">
-                                    <h2 class="text-lg font-medium text-gray-800 transition group-hover:text-purple-950 dark:text-white">Keep your loved ones safe</h2>
-                                    <p class="dark:text-gray-300 text-gray-700">Voluptate. magnam magni doloribus dolores voluptates a sapiente inventore nisi.</p>
+                                    <h2 class="text-lg font-medium text-gray-800 transition group-hover:text-purple-950 dark:text-white">Mantén una buena relación</h2>
+                                    <p class="dark:text-gray-300 text-gray-700">Tú decides a tus trabajadores de confianza</p>
                                 </div>
                             </div>
                             <div class="mt-6 relative sm:-mr-[--card-padding] sm:-my-8 before:absolute before:w-px before:inset-0 before:mx-auto before:bg-gray-200 dark:before:bg-gray-800">
                                 <div class="relative space-y-6 py-6 flex flex-col justify-center h-full">
                                     <div class="flex items-center justify-end gap-2 w-[calc(50%+0.875rem)] relative">
-                                        <span class="h-fit text-xs block px-2 py-1 shadow-sm border rounded-md dark:bg-gray-800 dark:border-white/5 dark:text-white">Glodie</span>
+                                        <span class="h-fit text-xs block px-2 py-1 shadow-sm border rounded-md dark:bg-gray-800 dark:border-white/5 dark:text-white">Dr. Carlos</span>
                                         <div class="size-7 ring-4 ring-white dark:ring-[--card-dark-bg]">
                                             <img class="rounded-full  border border-gray-950/5 dark:border-white/5 size-full" src="https://pbs.twimg.com/profile_images/1585976646468763648/OlbJkLL0_400x400.jpg" alt="" />
                                         </div>
@@ -311,10 +285,10 @@
                                         <div class="size-8 ring-4 ring-white dark:ring-[--card-dark-bg]">
                                             <img class="rounded-full  border border-gray-950/5 dark:border-white/5 size-full" src="https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/124.jpg" alt="" />
                                         </div>
-                                        <span class="h-fit text-xs block px-2 py-1 shadow-sm border rounded-md dark:bg-gray-800 dark:border-white/5 dark:text-white">M. Irung</span>
+                                        <span class="h-fit text-xs block px-2 py-1 shadow-sm border rounded-md dark:bg-gray-800 dark:border-white/5 dark:text-white">Sec. Karina</span>
                                     </div>
                                     <div class="flex items-center justify-end gap-2 w-[calc(50%+0.875rem)] relative">
-                                        <span class="h-fit text-xs block px-2 py-1 shadow-sm border rounded-md dark:bg-gray-800 dark:border-white/5 dark:text-white">B. Ng</span>
+                                        <span class="h-fit text-xs block px-2 py-1 shadow-sm border rounded-md dark:bg-gray-800 dark:border-white/5 dark:text-white">Pac. Mario</span>
                                         <div class="size-7 ring-4 ring-white dark:ring-[--card-dark-bg]">
                                             <img class="rounded-full  border border-gray-950/5 dark:border-white/5 size-full" src="https://pbs.twimg.com/profile_images/1585976646468763648/OlbJkLL0_400x400.jpg" alt="" />
                                         </div>

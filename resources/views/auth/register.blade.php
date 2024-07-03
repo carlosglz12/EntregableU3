@@ -12,15 +12,15 @@
     <div class="relative min-h-screen sm:flex sm:flex-row justify-center bg-transparent rounded-3xl shadow-xl">
         <div class="flex-col flex self-center lg:px-14 sm:max-w-4xl xl:max-w-md z-10">
             <div class="self-start hidden lg:flex flex-col text-gray-300">
-                <h1 class="my-3 font-semibold text-4xl">Create an account</h1>
-                <p class="pr-3 text-sm opacity-75">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups</p>
+                <h1 class="my-3 font-semibold text-4xl">Crea una cuenta</h1>
+                <p class="pr-3 text-sm opacity-75">Regístrate y se parte de esta asombrosa e innovadora forma de gestión médica para que el método antiguo deje de ser un problema para ti</p>
             </div>
         </div>
         <div class="flex justify-center self-center z-10">
             <div class="p-12 bg-white mx-auto rounded-3xl w-100">
                 <div class="mb-7">
-                    <h3 class="font-semibold text-2xl text-gray-800">Sign Up</h3>
-                    <p class="text-gray-400">Already have an account? <a href="{{ route('login') }}" class="text-sm text-purple-700 hover:text-purple-700">Sign In</a></p>
+                    <h3 class="font-semibold text-2xl text-gray-800">Regístrate</h3>
+                    <p class="text-gray-400">¿Tienes una cuenta? <a href="{{ route('login') }}" class="text-sm text-purple-700 hover:text-purple-700">Inicia sesión</a></p>
                 </div>
                 <div class="space-y-6">
                     <form method="POST" action="{{ route('register') }}">
@@ -74,7 +74,7 @@
                         </div>
                         <br>
                         <div class="flex items-center justify-between">
-                            <button type="submit" class="bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Registrarme</button>
+                            <button type="submit" class="bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Regístrate</button>
                         </div>
                     </form>
                 </div>
