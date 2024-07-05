@@ -1,0 +1,83 @@
+
+.custom-form {
+    background-color: #fff; 
+    padding: 2rem; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    width: 90%; 
+    max-width: 1200px; 
+    margin: 2rem auto; 
+}
+
+.custom-form h3 {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.custom-form label {
+    display: block; 
+    margin-bottom: 0.5rem; 
+    font-weight: 400; 
+    font-size: 13px;
+}
+
+.custom-form input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="date"],
+    input[type="time"],
+    input[type="password"],
+    textarea, select {
+    width: 100%;
+    border: 1px solid #d1d5db; 
+    border-radius: 4px; 
+}
+
+.custom-form input:focus {
+    border-color: #48bfe3; 
+    outline: none;
+}
+
+.custom-form .button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.custom-form button {
+    width: 100%; 
+    padding: 0.75rem; 
+    background-color: #48bfe3; 
+    color: #fff; 
+    border: none; 
+    border-radius: 4px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: background-color 0.2s;
+}
+
+.custom-form button:hover {
+    background-color: #4ea8de; 
+}
+
+.custom-form .form-group {
+    display: flex;
+    gap: 1rem; 
+}
+
+.custom-form .form-group .form-item {
+    flex: 1;
+}
+.button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
