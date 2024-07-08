@@ -37,7 +37,9 @@
                             @method('DELETE')
                             <button type="submit" class="button delete-button">Eliminar</button>
                         </form>
-                    </div>
+                        <a href="{{ route('consultas.crearConsulta', $cita->id) }}" class="button edit-button">Consultar</a>
+
+                        </div>
                 </td>
             </tr>
             @endforeach

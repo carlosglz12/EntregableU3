@@ -13,12 +13,12 @@ table {
 
 th, td {
     padding: 12px;
-    border: 1px solid #4ab5d0;
+    border: 1px solid #ebebeb;
     text-align: left;
 }
 
 th {
-    background-color: #49c6e5;
+    background-color: #16425b;
     position: sticky;
     color: white;
     top: 0;

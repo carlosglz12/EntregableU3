@@ -7,6 +7,8 @@ use App\Http\Controllers\PacientesController;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\CitaController;
+use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\FullCalendar;
 use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/', function () {
@@ -62,6 +64,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/citas/{cita}/editar', [CitaController::class, 'editar'])->name('citas.editar');
     Route::put('/citas/{cita}', [CitaController::class, 'update'])->name('citas.update');
     Route::delete('/citas/{cita}', [CitaController::class, 'eliminar'])->name('citas.eliminar');
+    Route::get('/calendario-citas', [FullCalendar::class, 'index'])->name('calendario.citas.index');
+
+    // Rutas para Consultas
+    Route::get('/consultas', [ConsultaController::class, 'index'])->name('consultas.index');
+    Route::get('/consultas/crear', [ConsultaController::class, 'create'])->name('consultas.create');
+    Route::post('/consultas', [ConsultaController::class, 'store'])->name('consultas.store');
+    Route::get('/consultas/{consulta}/editar', [ConsultaController::class, 'edit'])->name('consultas.edit');
+    Route::put('/consultas/{consulta}', [ConsultaController::class, 'update'])->name('consultas.update');
+    Route::delete('/consultas/{consulta}', [ConsultaController::class, 'destroy'])->name('consultas.destroy');
+    // Ruta para crear una consulta a partir de una cita
+    Route::get('/citas/{cita}/consulta', [ConsultaController::class, 'crearConsulta'])->name('consultas.crearConsulta');
+    Route::post('/citas/{cita}/consulta', [ConsultaController::class, 'storeConsulta'])->name('consultas.storeConsulta');
+    // Ruta para crear una consulta a partir de un paciente
+    Route::get('/pacientes/{paciente}/consulta', [ConsultaController::class, 'crearConsultaPaciente'])->name('consultas.crearConsultaPaciente');
+    Route::post('/pacientes/{paciente}/consulta', [ConsultaController::class, 'storeConsultaPaciente'])->name('consultas.storeConsultaPaciente');
 
 
 });

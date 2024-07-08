@@ -34,6 +34,7 @@
                         <button type="submit" class="button delete-button">Eliminar</button>
                     </form>
                     <a href="{{ route('citas.create', $paciente->id) }}" class="button">Agendar Cita</a>
+                    <a href="{{ route('consultas.crearConsultaPaciente', $paciente->id) }}" class="button edit-button">Consultar</a>
                 </div>
             </td>
         </tr>

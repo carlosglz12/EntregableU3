@@ -43,6 +43,9 @@
                     <x-nav-link :href="route('citas.index')" :active="request()->routeIs('citas.index')" class="text-white hover:text-gray-300">
                         {{ __('Citas') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('consultas.index')" :active="request()->routeIs('consultas.index')" class="text-white hover:text-gray-300">
+                        {{ __('Consultas') }}
+                    </x-nav-link>
 
                  
                 </div>
