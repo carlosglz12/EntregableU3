@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 <link rel="stylesheet" href="{{ asset('css/formularios.css') }}">
