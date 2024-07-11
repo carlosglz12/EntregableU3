@@ -20,7 +20,7 @@
         <tr>
             <td>{{ $secretaria->id }}</td>
             <td>{{ $secretaria->nombres }}</td>
-            <td>{{ $secretaria->lapellidos }}</td>
+            <td>{{ $secretaria->apellidos }}</td>
             <td>{{ $secretaria->correo }}</td>
             <td>{{ $secretaria->telefono }}</td>
             <td>

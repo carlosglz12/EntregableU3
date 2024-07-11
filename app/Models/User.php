@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -15,7 +16,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'role_id',
     ];
 
 
@@ -30,8 +31,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
     
-    // Método para verificar el rol del usuario
+    // metodo para verificar el rol del usuario
     public function hasRole($role)
     {
         return $this->role === $role;

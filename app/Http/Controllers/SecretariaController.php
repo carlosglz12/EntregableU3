@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Secretaria;
+use App\Models\User;
+use App\Models\Role;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -53,6 +56,14 @@ class SecretariaController extends Controller
             'correo' => $request->correo,
             'password' => Hash::make($request->password),
             'telefono' => $request->telefono,
+        ]);
+
+        // Crear y guardar el nuevo usuario en la tabla users
+        User::create([
+            'name' => $secretaria->nombres . ' ' . $secretaria->apellidos,
+            'email' => $secretaria->correo,
+            'password' => Hash::make($request->password),
+            'role_id' => Role::where('name', 'Secretaria')->first()->id,
         ]);
 
         // Redirigir a la lista de secretarias con un mensaje de éxito

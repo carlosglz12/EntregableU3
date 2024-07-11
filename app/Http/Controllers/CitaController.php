@@ -84,7 +84,7 @@ class CitaController extends Controller
         // obtener todos los pacientes y doctores
         $pacientes = Pacientes::all();
         $doctores = Doctores::all();
-        // retornar la vista 'citas.edit' con la cita, pacientes y doctores
+       
         return view('citas.edit', compact('cita', 'pacientes', 'doctores'));
     }
 
@@ -93,10 +93,10 @@ class CitaController extends Controller
     {
         // validar los datos del formulario
         $request->validate([
-            'paciente_id' => 'required|exists:pacientes,id', // el paciente debe existir en la tabla de pacientes
-            'doctor_id' => 'required|exists:doctores,id', // el doctor debe existir en la tabla de doctores
+            'paciente_id' => 'required|exists:pacientes,id',
+            'doctor_id' => 'required|exists:doctores,id', 
             'fecha' => 'required|date|after:now', // la fecha debe ser una fecha válida y no puede ser en el pasado
-            'hora' => 'required', // la hora es obligatoria
+            'hora' => 'required', 
             'estado' => 'required|in:completada,terminada,en proceso,cancelada' // el estado debe ser uno de los valores permitidos
         ]);
 

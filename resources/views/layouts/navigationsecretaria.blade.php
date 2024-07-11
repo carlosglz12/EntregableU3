@@ -28,26 +28,11 @@
                     <x-nav-link :href="route('pacientes.create')" :active="request()->routeIs('pacientes.create')" class="text-white hover:text-gray-300">
                         {{ __('Agregar Paciente') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('servicios.index')" :active="request()->routeIs('servicios.index')" class="text-white hover:text-gray-300">
-                        {{ __('Servicios') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('servicios.create')" :active="request()->routeIs('servicios.create')" class="text-white hover:text-gray-300">
-                        {{ __('Agregar Servicio') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('secretarias.index')" :active="request()->routeIs('secretarias.index')" class="text-white hover:text-gray-300">
-                        {{ __('Secretarias') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('secretarias.create')" :active="request()->routeIs('secretarias.create')" class="text-white hover:text-gray-300">
-                        {{ __('Agregar Secretaria') }}
-                    </x-nav-link>
                     <x-nav-link :href="route('citas.index')" :active="request()->routeIs('citas.index')" class="text-white hover:text-gray-300">
                         {{ __('Citas') }}
                     </x-nav-link>
                     <x-nav-link :href="route('consultas.index')" :active="request()->routeIs('consultas.index')" class="text-white hover:text-gray-300">
                         {{ __('Consultas') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.index')" class="text-white hover:text-gray-300">
-                        {{ __('Roles') }}
                     </x-nav-link>
 
                  

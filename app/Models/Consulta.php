@@ -40,6 +40,6 @@ class Consulta extends Model
     
     public function servicios()
     {
-        return $this->belongsToMany(Servicios::class, 'consulta_servicio');
+        return $this->belongsToMany(Servicios::class, 'consulta_servicio')->withPivot('notas');
     }
 }

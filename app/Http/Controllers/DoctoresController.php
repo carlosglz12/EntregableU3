@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctores;
+use App\Models\User;
+use App\Models\Role;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -57,6 +60,14 @@ class DoctoresController extends Controller
             'telefono' => $request->telefono,
             'especialidad' => $request->especialidad,
             'consultorio' => $request->consultorio,
+        ]);
+
+        // Crear y guardar el nuevo usuario en la tabla users
+        User::create([
+            'name' => $doctor->nombres . ' ' . $doctor->apellidos,
+            'email' => $doctor->correo,
+            'password' => Hash::make($request->password),
+            'role_id' => Role::where('name', 'Doctor')->first()->id,
         ]);
 
         // Redirigir a la lista de doctores con un mensaje de éxito

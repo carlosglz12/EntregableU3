@@ -14,7 +14,20 @@
 </head>
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        @include('layouts.navigation')
+       <!-- @if(Auth::check())
+         <p>Current role: {{ Auth::user()->role->name }}</p>-->
+            @if(Auth::user()->role->name === 'Administrador')
+                @include('layouts.navigation')
+            @elseif(Auth::user()->role->name === 'Doctor')
+                @include('layouts.navigationdoctor')
+            @elseif(Auth::user()->role->name === 'Secretaria')
+                @include('layouts.navigationsecretaria')
+            @else
+                @include('layouts.navigation')
+            @endif
+        @else
+            @include('layouts.navigation')
+        @endif
         <!-- Page Heading -->
         @isset($header)
             <header class="bg-white shadow">

@@ -51,27 +51,59 @@
         <div class="form-group">
             <div class="form-item">
                 <label for="medicamentos" class="form-label">Medicamentos</label>
-                <div id="medicamentos-container">
-                    <div class="medicamento">
-                        <input type="text" class="form-control mb-2 medicamento-input" name="medicamentos[0][nombre]" placeholder="Nombre" required>
-                        <input type="number" class="form-control mb-2 medicamento-input" name="medicamentos[0][cantidad]" placeholder="Cantidad" required>
-                        <input type="text" class="form-control mb-2 medicamento-input" name="medicamentos[0][frecuencia]" placeholder="Frecuencia" required>
-                        <input type="text" class="form-control mb-2 medicamento-input" name="medicamentos[0][duracion]" placeholder="Duración" required>
-                        <textarea class="form-control mb-2 medicamento-input" name="medicamentos[0][notas]" placeholder="Notas"></textarea>
-                        <button type="button" class="btn btn-danger remove-medicamento" onclick="removeMedicamento(this)">Eliminar</button>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-secondary" onclick="addMedicamento()">Agregar Medicamento</button>
+                <table class="table" id="medicamentos-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Frecuencia</th>
+                            <th>Duración</th>
+                            <th>Notas</th>
+                            <th>Acciones
+                                <button type="button" class="btn btn-secondary" id="add-medicamento">Agregar Medicamento</button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" class="form-control" name="medicamentos[0][nombre]" required></td>
+                            <td><input type="number" class="form-control" name="medicamentos[0][cantidad]" required></td>
+                            <td><input type="text" class="form-control" name="medicamentos[0][frecuencia]" required></td>
+                            <td><input type="text" class="form-control" name="medicamentos[0][duracion]" required></td>
+                            <td><textarea class="form-control" name="medicamentos[0][notas]"></textarea></td>
+                            <td><button type="button" class="btn btn-danger remove-medicamento">Eliminar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="form-group">
             <div class="form-item">
                 <label for="servicios" class="form-label">Servicios</label>
-                <select class="form-select" id="servicios" name="servicios[]" multiple required>
-                    @foreach ($servicios as $servicio)
-                        <option value="{{ $servicio->id }}">{{ $servicio->nombre }}</option>
-                    @endforeach
-                </select>
+                <table class="table" id="servicios-table">
+                    <thead>
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Notas</th>
+                            <th>Acciones
+                                <button type="button" class="btn btn-secondary" id="add-servicio">Agregar Servicio</button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-select" name="servicios[0][id]">
+                                    @foreach ($servicios as $servicio)
+                                        <option value="{{ $servicio->id }}">{{ $servicio->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" name="servicios[0][notas]"></textarea></td>
+                            <td><button type="button" class="btn btn-danger remove-servicio">Eliminar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="form-group">
@@ -87,26 +119,50 @@
 </div>
 
 <script>
-    function addMedicamento() {
-        const container = document.getElementById('medicamentos-container');
-        const index = container.children.length;
-        const div = document.createElement('div');
-        div.classList.add('medicamento');
-        div.innerHTML = `
-            <input type="text" class="form-control mb-2 medicamento-input" name="medicamentos[${index}][nombre]" placeholder="Nombre" required>
-            <input type="number" class="form-control mb-2 medicamento-input" name="medicamentos[${index}][cantidad]" placeholder="Cantidad" required>
-            <input type="text" class="form-control mb-2 medicamento-input" name="medicamentos[${index}][frecuencia]" placeholder="Frecuencia" required>
-            <input type="text" class="form-control mb-2 medicamento-input" name="medicamentos[${index}][duracion]" placeholder="Duración" required>
-            <textarea class="form-control mb-2 medicamento-input" name="medicamentos[${index}][notas]" placeholder="Notas"></textarea>
-            <button type="button" class="btn btn-danger remove-medicamento" onclick="removeMedicamento(this)">Eliminar</button>
+    document.getElementById('add-medicamento').addEventListener('click', function() {
+        const table = document.getElementById('medicamentos-table').getElementsByTagName('tbody')[0];
+        const rowCount = table.rows.length;
+        const row = table.insertRow(rowCount);
+        row.innerHTML = `
+            <td><input type="text" class="form-control" name="medicamentos[${rowCount}][nombre]" required></td>
+            <td><input type="number" class="form-control" name="medicamentos[${rowCount}][cantidad]" required></td>
+            <td><input type="text" class="form-control" name="medicamentos[${rowCount}][frecuencia]" required></td>
+            <td><input type="text" class="form-control" name="medicamentos[${rowCount}][duracion]" required></td>
+            <td><textarea class="form-control" name="medicamentos[${rowCount}][notas]"></textarea></td>
+            <td><button type="button" class="btn btn-danger remove-medicamento">Eliminar</button></td>
         `;
-        container.appendChild(div);
-    }
+    });
 
-    function removeMedicamento(button) {
-        const container = document.getElementById('medicamentos-container');
-        container.removeChild(button.parentElement);
-    }
+    document.getElementById('medicamentos-table').addEventListener('click', function(e) {
+        if (e.target && e.target.matches('button.remove-medicamento')) {
+            const row = e.target.closest('tr');
+            row.parentNode.removeChild(row);
+        }
+    });
+
+    document.getElementById('add-servicio').addEventListener('click', function() {
+        const table = document.getElementById('servicios-table').getElementsByTagName('tbody')[0];
+        const rowCount = table.rows.length;
+        const row = table.insertRow(rowCount);
+        row.innerHTML = `
+            <td>
+                <select class="form-select" name="servicios[${rowCount}][id]">
+                    @foreach ($servicios as $servicio)
+                        <option value="{{ $servicio->id }}">{{ $servicio->nombre }}</option>
+                    @endforeach
+                </select>
+            </td>
+            <td><textarea class="form-control" name="servicios[${rowCount}][notas]"></textarea></td>
+            <td><button type="button" class="btn btn-danger remove-servicio">Eliminar</button></td>
+        `;
+    });
+
+    document.getElementById('servicios-table').addEventListener('click', function(e) {
+        if (e.target && e.target.matches('button.remove-servicio')) {
+            const row = e.target.closest('tr');
+            row.parentNode.removeChild(row);
+        }
+    });
 </script>
 @endsection
 
@@ -184,14 +240,34 @@
     flex: 1;
 }
 
-.medicamento {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0.5rem;
+.table th, .table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
 }
 
-.medicamento-input {
-    margin-bottom: 0.5rem;
+.table .table {
+    background-color: #fff;
+}
+
+.btn-secondary {
+    background-color: #6c757d; 
+    border: none; 
+    padding: 10px 20px; 
+    color: #fff; 
+    cursor: pointer; 
+    border-radius: 4px; 
+    margin-top: 10px; 
+}
+
+.btn-danger {
+    background-color: #dc3545; 
+    border: none; 
+    padding: 10px 20px; 
+    color: #fff; 
+    cursor: pointer; 
+    border-radius: 4px; 
+    margin-top: 10px; 
 }
 
 .button {

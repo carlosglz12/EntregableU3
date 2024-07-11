@@ -15,8 +15,8 @@ class ConsultaController extends Controller
     // método para mostrar todas las consultas
     public function index(): View
     {
-        // obtener todas las consultas con información del paciente y de la cita
-        $consultas = Consulta::with('paciente', 'cita')->get();
+        // obtener todas las consultas con información del paciente, de la cita y de los servicios
+        $consultas = Consulta::with('paciente', 'cita', 'servicios')->get();
         // retornar la vista 'consultas.consultas' con la lista de consultas
         return view('consultas.consultas', compact('consultas'));
     }
@@ -52,11 +52,21 @@ class ConsultaController extends Controller
             'motivo_consulta' => 'required|string',
             'padecimiento' => 'required|string',
             'medicamentos' => 'required|array',
-            'notas' => 'nullable|string'
+            'notas' => 'nullable|string',
+            'servicios' => 'nullable|array',
+            'servicios.*.id' => 'nullable|exists:servicios,id',
+            'servicios.*.notas' => 'nullable|string',
         ]);
 
         // crear y guardar la nueva consulta en la base de datos
         $consulta = Consulta::create($request->all());
+
+        // guardar los servicios asociados a la consulta
+        if ($request->has('servicios')) {
+            foreach ($request->servicios as $servicio) {
+                $consulta->servicios()->attach($servicio['id'], ['notas' => $servicio['notas'] ?? null]);
+            }
+        }
 
         // redirigir a la lista de consultas con un mensaje de éxito
         return redirect()->route('consultas.index')->with('success', 'Consulta creada exitosamente.');
@@ -90,11 +100,22 @@ class ConsultaController extends Controller
             'motivo_consulta' => 'required|string',
             'padecimiento' => 'required|string',
             'medicamentos' => 'required|array',
-            'notas' => 'nullable|string'
+            'notas' => 'nullable|string',
+            'servicios' => 'nullable|array',
+            'servicios.*.id' => 'nullable|exists:servicios,id',
+            'servicios.*.notas' => 'nullable|string',
         ]);
 
         // actualizar la consulta con los nuevos datos
-        $consulta->update($request->all());
+        $consulta->update($this->extractRequestData($request));
+
+        // actualizar los servicios asociados a la consulta
+        $consulta->servicios()->detach();
+        if ($request->has('servicios')) {
+            foreach ($request->servicios as $servicio) {
+                $consulta->servicios()->attach($servicio['id'], ['notas' => $servicio['notas'] ?? null]);
+            }
+        }
 
         // redirigir a la lista de consultas con un mensaje de éxito
         return redirect()->route('consultas.index')->with('success', 'Consulta actualizada exitosamente.');
@@ -109,7 +130,7 @@ class ConsultaController extends Controller
         // redirigir a la lista de consultas con un mensaje de éxito
         return redirect()->route('consultas.index')->with('success', 'Consulta eliminada exitosamente.');
     }
-    
+
     // método para crear una consulta a partir de una cita existente
     public function crearConsulta(Cita $cita): View
     {
@@ -133,6 +154,13 @@ class ConsultaController extends Controller
 
         // guardar la nueva consulta en la base de datos
         $consulta->save();
+
+        // guardar los servicios asociados a la consulta
+        if ($request->has('servicios')) {
+            foreach ($request->servicios as $servicio) {
+                $consulta->servicios()->attach($servicio['id'], ['notas' => $servicio['notas'] ?? null]);
+            }
+        }
 
         // redirigir a la lista de consultas con un mensaje de éxito
         return redirect()->route('consultas.index')->with('success', 'Consulta creada exitosamente.');
@@ -161,6 +189,13 @@ class ConsultaController extends Controller
         // guardar la nueva consulta en la base de datos
         $consulta->save();
 
+        // guardar los servicios asociados a la consulta
+        if ($request->has('servicios')) {
+            foreach ($request->servicios as $servicio) {
+                $consulta->servicios()->attach($servicio['id'], ['notas' => $servicio['notas'] ?? null]);
+            }
+        }
+
         // redirigir a la lista de consultas con un mensaje de éxito
         return redirect()->route('consultas.index')->with('success', 'Consulta creada exitosamente.');
     }
@@ -185,6 +220,9 @@ class ConsultaController extends Controller
             'medicamentos.*.duracion' => 'required|string',
             'medicamentos.*.notas' => 'nullable|string',
             'notas' => 'nullable|string',
+            'servicios' => 'nullable|array',
+            'servicios.*.id' => 'nullable|exists:servicios,id',
+            'servicios.*.notas' => 'nullable|string',
         ]);
     }
 

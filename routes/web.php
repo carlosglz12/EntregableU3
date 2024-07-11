@@ -9,6 +9,7 @@ use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\FullCalendar;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/', function () {
@@ -80,6 +81,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/pacientes/{paciente}/consulta', [ConsultaController::class, 'crearConsultaPaciente'])->name('consultas.crearConsultaPaciente');
     Route::post('/pacientes/{paciente}/consulta', [ConsultaController::class, 'storeConsultaPaciente'])->name('consultas.storeConsultaPaciente');
 
+    //Rutas para los roles
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::put('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
+    Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
 });
 

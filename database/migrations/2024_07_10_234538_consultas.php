@@ -20,17 +20,29 @@ return new class extends Migration
             $table->decimal('altura', 5, 2);
             $table->text('motivo_consulta');
             $table->text('padecimiento');
-            $table->text('medicamentos'); // Guardar como JSON
+            $table->json('medicamentos'); // guardar como JSON ya que no ocupa tabla
             $table->text('notas')->nullable();
             $table->timestamps();
 
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->foreign('cita_id')->references('id')->on('citas')->onDelete('set null');
         });
+
+        Schema::create('consulta_servicio', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('consulta_id');
+            $table->unsignedBigInteger('servicios_id');
+            $table->text('notas')->nullable();
+            $table->timestamps();
+
+            $table->foreign('consulta_id')->references('id')->on('consultas')->onDelete('cascade');
+            $table->foreign('servicios_id')->references('id')->on('servicios')->onDelete('cascade');
+        });
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('consulta_servicio');
         Schema::dropIfExists('consultas');
     }
 };
