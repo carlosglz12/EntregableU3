@@ -31,9 +31,6 @@
                     <x-nav-link :href="route('citas.index')" :active="request()->routeIs('citas.index')" class="text-white hover:text-gray-300">
                         {{ __('Citas') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('consultas.index')" :active="request()->routeIs('consultas.index')" class="text-white hover:text-gray-300">
-                        {{ __('Consultas') }}
-                    </x-nav-link>
 
                  
                 </div>
@@ -81,7 +78,7 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
+    <!-- Menu responsivo de secretarias -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white hover:bg-blue-700">

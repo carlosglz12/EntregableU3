@@ -26,7 +26,7 @@ class Pacientes extends Authenticatable
         'remember_token',
     ];
 
-    protected $casts = [
+    protected $dates = [
         'fecha_nacimiento' => 'date',
     ];
 }
