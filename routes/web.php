@@ -74,6 +74,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/consultas/{consulta}/editar', [ConsultaController::class, 'edit'])->name('consultas.edit');
     Route::put('/consultas/{consulta}', [ConsultaController::class, 'update'])->name('consultas.update');
     Route::delete('/consultas/{consulta}', [ConsultaController::class, 'destroy'])->name('consultas.destroy');
+    Route::get('/consultas/{consulta}', [ConsultaController::class, 'show'])->name('consultas.show');
+    Route::get('/consultas/{consulta}/pdf', [ConsultaController::class, 'downloadPdf'])->name('consultas.downloadPdf');
+
+
     // Ruta para crear una consulta a partir de una cita
     Route::get('/citas/{cita}/consulta', [ConsultaController::class, 'crearConsulta'])->name('consultas.crearConsulta');
     Route::post('/citas/{cita}/consulta', [ConsultaController::class, 'storeConsulta'])->name('consultas.storeConsulta');

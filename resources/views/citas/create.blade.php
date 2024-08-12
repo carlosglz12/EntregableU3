@@ -2,6 +2,26 @@
 <link rel="stylesheet" href="{{ asset('css/formularios.css') }}">
 
 @section('content')
+@if(session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session('error') }}',
+        });
+    </script>
+@endif
+
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '{{ session('success') }}',
+        });
+    </script>
+@endif
+
 <form class="custom-form" method="POST" action="{{ route('citas.store') }}">
     @csrf
     <h3>Agendar Cita</h3>

@@ -23,6 +23,7 @@
                 <td>{{ $consulta->motivo_consulta }}</td>
                 <td>{{ $consulta->padecimiento }}</td>
                 <td>
+                    <a href="{{ route('consultas.show', $consulta->id) }}" class="btn btn-info">Ver</a>
                     <a href="{{ route('consultas.edit', $consulta->id) }}" class="btn btn-warning">Editar</a>
                     <form action="{{ route('consultas.destroy', $consulta->id) }}" method="POST" style="display:inline-block;">
                         @csrf
@@ -36,6 +37,7 @@
     </table>
 </div>
 @endsection
+
 
 <style>
 .container {

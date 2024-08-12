@@ -2,6 +2,26 @@
 <link rel="stylesheet" href="{{ asset('css/formularios.css') }}">
 
 @section('content')
+@if(session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session('error') }}',
+        });
+    </script>
+@endif
+
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '{{ session('success') }}',
+        });
+    </script>
+@endif
+
 <form class="custom-form" method="POST" action="{{ route('citas.update', $cita->id) }}">
     @csrf
     @method('PUT')
@@ -29,6 +49,8 @@
                 @endforeach
             </select>
         </div>
+    </div>
+    <div class="form-group">
         <div class="form-item mb-5">
             <label for="fecha">Fecha</label>
             <input type="date" id="fecha" name="fecha" value="{{ $cita->fecha }}" required />
@@ -36,15 +58,15 @@
         <div class="form-item mb-5">
             <label for="hora">Hora</label>
             <select id="hora" name="hora" required>
-                @for ($i = 0; $i < 24; $i++)
-                    @for ($j = 0; $j < 60; $j += 30)
-                        @php
-                            $time = sprintf('%02d:%02d', $i, $j);
-                        @endphp
-                        <option value="{{ $time }}" {{ $time == $cita->hora ? 'selected' : '' }}>
-                            {{ date('h:i A', strtotime($time)) }}
-                        </option>
-                    @endfor
+                @for ($i = 0; $i < 24*2; $i++)
+                    @php
+                        $time = strtotime('00:00') + $i * 30 * 60;
+                        $timeDisplay = date('h:i A', $time);
+                        $timeValue = date('H:i:s', $time);
+                    @endphp
+                    <option value="{{ $timeValue }}" {{ $timeValue == $cita->hora ? 'selected' : '' }}>
+                        {{ $timeDisplay }}
+                    </option>
                 @endfor
             </select>
         </div>

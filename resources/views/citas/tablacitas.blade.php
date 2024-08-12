@@ -32,18 +32,53 @@
                 <td class="border px-4 py-2">
                     <div class="action-buttons">
                         <a href="{{ route('citas.editar', $cita->id) }}" class="button edit-button">Editar</a>
-                        <form action="{{ route('citas.eliminar', $cita->id) }}" method="POST" style="display:inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="button delete-button">Eliminar</button>
-                        </form>
+                        <button class="button delete-button" onclick="confirmDelete('{{ $cita->paciente->nombres }}', {{ $cita->id }});">Eliminar</button>
                         <a href="{{ route('consultas.crearConsulta', $cita->id) }}" class="button edit-button">Consultar</a>
-
-                        </div>
+                    </div>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete(pacienteNombre, citaId) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: `No podrás revertir esto. La cita del paciente ${pacienteNombre} se eliminará.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminarla!',
+            cancelButtonText: 'No, cancelar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Crear y enviar el formulario para eliminar la cita
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/citas/${citaId}`;
+                
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const csrfField = document.createElement('input');
+                csrfField.type = 'hidden';
+                csrfField.name = '_token';
+                csrfField.value = csrfToken;
+                
+                const methodField = document.createElement('input');
+                methodField.type = 'hidden';
+                methodField.name = '_method';
+                methodField.value = 'DELETE';
+
+                form.appendChild(csrfField);
+                form.appendChild(methodField);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+</script>
 @endsection
