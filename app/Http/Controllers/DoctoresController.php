@@ -101,18 +101,18 @@ class DoctoresController extends Controller
         return redirect()->route('doctores.index')->with('success', 'Datos del doctor actualizados.');
     }
 
-    // Método para eliminar un doctor de la base de datos
     public function destroy($id): RedirectResponse
     {
-        // Encontrar el doctor por su ID
         $doctor = Doctores::find($id);
         if ($doctor) {
-            // Eliminar el doctor de la base de datos
+            $user = User::where('email', $doctor->correo)->first();
             $doctor->delete();
-            // Redirigir a la lista de doctores con un mensaje de éxito
+            if ($user) {
+                $user->delete();
+            }
             return redirect()->route('doctores.index')->with('success', 'Doctor eliminado exitosamente.');
         }
-        // Redirigir a la lista de doctores con un mensaje de error si el doctor no se encuentra
         return redirect()->route('doctores.index')->with('error', 'Doctor no encontrado.');
     }
+    
 }

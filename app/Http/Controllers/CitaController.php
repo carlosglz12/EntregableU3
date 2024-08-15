@@ -44,40 +44,42 @@ class CitaController extends Controller
         return view('citas.tablacitas', compact('citas'));
     }
 
-    // Método para guardar una nueva cita en la base de datos
+
     public function store(Request $request)
     {
-        // Validar los datos del formulario
         $request->validate([
-            'paciente_id' => 'required|exists:pacientes,id', 
-            'doctor_id' => 'required|exists:doctores,id', 
-            'fecha' => 'required|date|after:yesterday', 
-            'hora' => 'required', 
+            'paciente_id' => 'required|exists:pacientes,id',
+            'doctor_id' => 'required|exists:doctores,id',
+            'fecha' => 'required|date|after:yesterday',
+            'hora' => 'required',
         ]);
-
-        // Verificar si ya existe una cita en la misma fecha y hora
-        $existingCita = Cita::where('fecha', $request->fecha)
-                            ->where('hora', $request->hora)
-                            ->where('doctor_id', $request->doctor_id)
-                            ->first();
-
-        if ($existingCita) {
-            // Redirigir de vuelta con un mensaje de error
-            return redirect()->back()->with('error', 'Ya existe una cita programada para esta fecha y hora. Por favor, elige otra.');
+    
+        // Verificar si ya existe una cita en la misma fecha y hora con el mismo doctor que no esté cancelada o completada
+        $citaExistente = Cita::where('fecha', $request->fecha)
+            ->where('hora', $request->hora)
+            ->where('doctor_id', $request->doctor_id)
+            ->whereNotIn('estado', ['cancelada', 'completada'])
+            ->first();
+    
+        if ($citaExistente) {
+            return redirect()->back()->with('error', 'Ya existe una cita programada para esta fecha y hora con este doctor. Por favor, elige otra hora.');
         }
-
-        // Crear y guardar la nueva cita en la base de datos
-        Cita::create([
-            'paciente_id' => $request->paciente_id,
-            'doctor_id' => $request->doctor_id,
-            'fecha' => $request->fecha,
-            'hora' => $request->hora,
-            'estado' => 'en proceso'
-        ]);
-
-        // Redirigir a la lista de citas con un mensaje de éxito
-        return redirect()->route('citas.index')->with('success', 'Cita agendada exitosamente.');
+    
+        try {
+            Cita::create([
+                'paciente_id' => $request->paciente_id,
+                'doctor_id' => $request->doctor_id,
+                'fecha' => $request->fecha,
+                'hora' => $request->hora,
+                'estado' => 'en proceso'
+            ]);
+            return redirect()->route('citas.index')->with('success', 'Cita agendada exitosamente.');
+        } catch (\Exception $e) {
+            \Log::error('Error al agendar cita: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Hubo un problema al agendar la cita. Por favor, intenta nuevamente.');
+        }
     }
+    
 
     // Método para mostrar el formulario de edición de una cita existente
     public function editar($id): View
@@ -91,45 +93,46 @@ class CitaController extends Controller
         return view('citas.edit', compact('cita', 'pacientes', 'doctores'));
     }
 
-    // Método para actualizar una cita existente en la base de datos
     public function update(Request $request, $id)
     {
-        // Validar los datos del formulario
         $request->validate([
             'paciente_id' => 'required|exists:pacientes,id',
-            'doctor_id' => 'required|exists:doctores,id', 
-            'fecha' => 'required|date|after:now', 
-            'hora' => 'required', 
-            'estado' => 'required|in:completada,terminada,en proceso,cancelada' 
+            'doctor_id' => 'required|exists:doctores,id',
+            'fecha' => 'required|date|after:now',
+            'hora' => 'required',
+            'estado' => 'required|in:completada,terminada,en proceso,cancelada'
         ]);
-
+    
+        // Verificar si ya existe una cita en la misma fecha y hora con el mismo doctor que no esté cancelada o completada
+        $citaExistente = Cita::where('fecha', $request->fecha)
+            ->where('hora', $request->hora)
+            ->where('doctor_id', $request->doctor_id)
+            ->where('id', '!=', $id) // Excluir la cita actual
+            ->whereNotIn('estado', ['cancelada', 'completada'])
+            ->first();
+    
+        if ($citaExistente) {
+            return redirect()->back()->with('error', 'Ya existe una cita programada para esta fecha y hora con este doctor. Por favor, elige otra hora.');
+        }
+    
         // Encontrar la cita por su ID
         $cita = Cita::findOrFail($id);
-
-        // Verificar si ya existe una cita en la misma fecha y hora (excluyendo la actual)
-        $existingCita = Cita::where('fecha', $request->fecha)
-                            ->where('hora', $request->hora)
-                            ->where('doctor_id', $request->doctor_id)
-                            ->where('id', '!=', $id)
-                            ->first();
-
-        if ($existingCita) {
-            // Redirigir de vuelta con un mensaje de error
-            return redirect()->back()->with('error', 'Ya existe una cita programada para esta fecha y hora. Por favor, elige otra.');
+    
+        try {
+            $cita->update([
+                'paciente_id' => $request->paciente_id,
+                'doctor_id' => $request->doctor_id,
+                'fecha' => $request->fecha,
+                'hora' => $request->hora,
+                'estado' => $request->estado
+            ]);
+            return redirect()->route('citas.tablacitas')->with('success', 'Cita actualizada exitosamente.');
+        } catch (\Exception $e) {
+            \Log::error('Error al actualizar la cita: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Hubo un problema al actualizar la cita. Por favor, intenta nuevamente.');
         }
-
-        // Actualizar la cita con los nuevos datos
-        $cita->update([
-            'paciente_id' => $request->paciente_id,
-            'doctor_id' => $request->doctor_id,
-            'fecha' => $request->fecha,
-            'hora' => $request->hora,
-            'estado' => $request->estado
-        ]);
-
-        // Redirigir a la tabla de citas con un mensaje de éxito
-        return redirect()->route('citas.tablacitas')->with('success', 'Cita actualizada exitosamente.');
     }
+    
 
     // Método para eliminar una cita de la base de datos
     public function eliminar($id)
@@ -139,9 +142,13 @@ class CitaController extends Controller
         $pacienteNombre = $cita->paciente->nombres . ' ' . $cita->paciente->apellidos;
         
         // Eliminar la cita de la base de datos
-        $cita->delete();
-        
-        // Redirigir a la tabla de citas con un mensaje de éxito
-        return redirect()->route('citas.tablacitas')->with('success', "Cita del paciente $pacienteNombre eliminada exitosamente.");
+        try {
+            $cita->delete();
+            return redirect()->route('citas.tablacitas')->with('success', "Cita del paciente $pacienteNombre eliminada exitosamente.");
+        } catch (\Exception $e) {
+            // Registrar el error en el log de Laravel para depuración
+            \Log::error('Error al eliminar la cita: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Hubo un problema al eliminar la cita. Por favor, intenta nuevamente.');
+        }
     }
 }

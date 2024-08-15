@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="custom-form">
-    <h3>Registrar Nueva Consulta para {{ $paciente->nombres }} {{ $paciente->apellidos }}</h3>
+<h3>Registrar Nueva Consulta para {{ $paciente->nombres ?? 'Paciente no encontrado' }} {{ $paciente->apellidos ?? '' }}</h3>
 
     <form method="POST" action="{{ $cita ? route('consultas.storeConsulta', $cita->id) : route('consultas.storeConsultaPaciente', $paciente->id) }}">
         @csrf
@@ -84,6 +84,7 @@
                     <thead>
                         <tr>
                             <th>Servicio</th>
+                            <th>Cantidad</th>
                             <th>Notas</th>
                             <th>Acciones
                                 <button type="button" class="btn btn-secondary" id="add-servicio">Agregar Servicio</button>
@@ -91,17 +92,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <select class="form-select" name="servicios[0][id]">
-                                    @foreach ($servicios as $servicio)
-                                        <option value="{{ $servicio->id }}">{{ $servicio->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td><textarea class="form-control" name="servicios[0][notas]"></textarea></td>
-                            <td><button type="button" class="btn btn-danger remove-servicio">Eliminar</button></td>
-                        </tr>
+                    <tr>
+                        <td>
+                            <select class="form-select" name="servicios[0][id]">
+                                @foreach ($servicios as $servicio)
+                                    <option value="{{ $servicio->id }}">{{ $servicio->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td><input type="number" class="form-control" name="servicios[0][cantidad]" value="1" required></td>
+                        <td><textarea class="form-control" name="servicios[0][notas]"></textarea></td>
+                        <td><button type="button" class="btn btn-danger remove-servicio">Eliminar</button></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -118,7 +120,31 @@
     </form>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Siempre prevenir el envío por defecto
+
+        const peso = parseFloat(document.getElementById('peso').value);
+        const talla = parseFloat(document.getElementById('talla').value);
+        const temperatura = parseFloat(document.getElementById('temperatura').value);
+        const saturacion = parseFloat(document.getElementById('saturacion').value);
+        const frecuencia_cardiaca = parseInt(document.getElementById('frecuencia_cardiaca').value);
+        const altura = parseFloat(document.getElementById('altura').value);
+
+        if (peso > 99 || talla > 99 || temperatura > 99 || saturacion > 99 || frecuencia_cardiaca > 99 || altura > 99) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Los valores no pueden ser mayores a 99.',
+                confirmButtonColor: '#3085d6'
+            });
+        } else {
+            // Si todo está bien, envía el formulario
+            this.submit();
+        }
+    });
+
     document.getElementById('add-medicamento').addEventListener('click', function() {
         const table = document.getElementById('medicamentos-table').getElementsByTagName('tbody')[0];
         const rowCount = table.rows.length;
@@ -141,21 +167,22 @@
     });
 
     document.getElementById('add-servicio').addEventListener('click', function() {
-        const table = document.getElementById('servicios-table').getElementsByTagName('tbody')[0];
-        const rowCount = table.rows.length;
-        const row = table.insertRow(rowCount);
-        row.innerHTML = `
-            <td>
-                <select class="form-select" name="servicios[${rowCount}][id]">
-                    @foreach ($servicios as $servicio)
-                        <option value="{{ $servicio->id }}">{{ $servicio->nombre }}</option>
-                    @endforeach
-                </select>
-            </td>
-            <td><textarea class="form-control" name="servicios[${rowCount}][notas]"></textarea></td>
-            <td><button type="button" class="btn btn-danger remove-servicio">Eliminar</button></td>
-        `;
-    });
+    const table = document.getElementById('servicios-table').getElementsByTagName('tbody')[0];
+    const rowCount = table.rows.length;
+    const row = table.insertRow(rowCount);
+    row.innerHTML = `
+        <td>
+            <select class="form-select" name="servicios[${rowCount}][id]">
+                @foreach ($servicios as $servicio)
+                    <option value="{{ $servicio->id }}">{{ $servicio->nombre }}</option>
+                @endforeach
+            </select>
+        </td>
+        <td><input type="number" class="form-control" name="servicios[${rowCount}][cantidad]" value="1" required></td>
+        <td><textarea class="form-control" name="servicios[${rowCount}][notas]"></textarea></td>
+        <td><button type="button" class="btn btn-danger remove-servicio">Eliminar</button></td>
+    `;
+});
 
     document.getElementById('servicios-table').addEventListener('click', function(e) {
         if (e.target && e.target.matches('button.remove-servicio')) {
@@ -164,7 +191,9 @@
         }
     });
 </script>
+
 @endsection
+
 
 <style>
 .custom-form {

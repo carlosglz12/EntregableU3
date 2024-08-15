@@ -29,4 +29,9 @@ class Pacientes extends Authenticatable
     protected $dates = [
         'fecha_nacimiento' => 'date',
     ];
+    
+    public function consultas()
+    {
+        return $this->hasMany(Consulta::class, 'paciente_id');
+    }
 }

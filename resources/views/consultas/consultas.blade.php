@@ -36,6 +36,21 @@
         </tbody>
     </table>
 </div>
+
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session('success') }}',
+            confirmButtonColor: '#3085d6',
+        });
+    });
+</script>
+@endif
+
 @endsection
 
 

@@ -30,7 +30,7 @@
                     </span>
                 </td>
                 <td class="border px-4 py-2">
-                    <div class="action-buttons">
+                <div class="action-buttons">
                         <a href="{{ route('citas.editar', $cita->id) }}" class="button edit-button">Editar</a>
                         <button class="button delete-button" onclick="confirmDelete('{{ $cita->paciente->nombres }}', {{ $cita->id }});">Eliminar</button>
                         <a href="{{ route('consultas.crearConsulta', $cita->id) }}" class="button edit-button">Consultar</a>
@@ -42,7 +42,10 @@
     </table>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endsection
+
+
+@push('scripts')
 <script>
     function confirmDelete(pacienteNombre, citaId) {
         Swal.fire({
@@ -56,7 +59,6 @@
             cancelButtonText: 'No, cancelar!'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Crear y enviar el formulario para eliminar la cita
                 const form = document.createElement('form');
                 form.method = 'POST';
                 form.action = `/citas/${citaId}`;
@@ -81,4 +83,4 @@
         });
     }
 </script>
-@endsection
+@endpush

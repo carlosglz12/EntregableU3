@@ -10,7 +10,9 @@ use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\FullCalendar;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\VentaController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Models\Servicios;
 
 Route::get('/', function () {
     return view('welcome');
@@ -64,7 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/citas/tablacitas', [CitaController::class, 'tablacitas'])->name('citas.tablacitas');
     Route::get('/citas/{cita}/editar', [CitaController::class, 'editar'])->name('citas.editar');
     Route::put('/citas/{cita}', [CitaController::class, 'update'])->name('citas.update');
-    Route::delete('/citas/{cita}', [CitaController::class, 'eliminar'])->name('citas.eliminar');
+    Route::delete('/citas/{id}', [CitaController::class, 'eliminar'])->name('citas.eliminar');
     Route::get('/calendario-citas', [FullCalendar::class, 'index'])->name('calendario.citas.index');
 
     // Rutas para Consultas
@@ -81,6 +83,7 @@ Route::middleware('auth')->group(function () {
     // Ruta para crear una consulta a partir de una cita
     Route::get('/citas/{cita}/consulta', [ConsultaController::class, 'crearConsulta'])->name('consultas.crearConsulta');
     Route::post('/citas/{cita}/consulta', [ConsultaController::class, 'storeConsulta'])->name('consultas.storeConsulta');
+    
     // Ruta para crear una consulta a partir de un paciente
     Route::get('/pacientes/{paciente}/consulta', [ConsultaController::class, 'crearConsultaPaciente'])->name('consultas.crearConsultaPaciente');
     Route::post('/pacientes/{paciente}/consulta', [ConsultaController::class, 'storeConsultaPaciente'])->name('consultas.storeConsultaPaciente');
@@ -92,6 +95,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
     Route::put('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
     Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+
+    //ventas
+    Route::resource('ventas', VentaController::class);
+    Route::get('/ventas/{venta}', [VentaController::class, 'show'])->name('ventas.show');
 
 });
 
@@ -107,6 +114,11 @@ Route::prefix('secretaria')->name('secretaria.')->group(function () {
     Route::get('login', [LoginController::class, 'showSecretariaLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'secretariaLogin']);
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+});
+
+Route::get('/servicio/{id}/precio', function($id) {
+    $servicio = Servicios::find($id);
+    return response()->json(['precio' => $servicio->precio]);
 });
 
 require __DIR__.'/auth.php';

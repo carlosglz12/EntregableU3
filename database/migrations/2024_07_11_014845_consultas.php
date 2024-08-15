@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -31,12 +30,13 @@ return new class extends Migration
         Schema::create('consulta_servicio', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('consulta_id');
-            $table->unsignedBigInteger('servicios_id');
+            $table->unsignedBigInteger('servicio_id');
+            $table->integer('cantidad'); 
             $table->text('notas')->nullable();
             $table->timestamps();
 
             $table->foreign('consulta_id')->references('id')->on('consultas')->onDelete('cascade');
-            $table->foreign('servicios_id')->references('id')->on('servicios')->onDelete('cascade');
+            $table->foreign('servicio_id')->references('id')->on('servicios')->onDelete('cascade');
         });
     }
 

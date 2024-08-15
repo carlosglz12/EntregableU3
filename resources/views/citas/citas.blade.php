@@ -2,6 +2,33 @@
 <link rel="stylesheet" href="{{ asset('css/formularios.css') }}">
 
 @section('content')
+
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session('success') }}',
+            confirmButtonColor: '#3085d6',
+        });
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session('error') }}',
+            confirmButtonColor: '#3085d6',
+        });
+    });
+</script>
+@endif
+
 <a href="{{ route('citas.create') }}" class="button">Agregar Cita</a>
 <a href="{{ route('citas.tablacitas') }}" class="button">Ver todas las citas</a>
 <div class="bg-gray-100 flex items-center justify-center h-screen">

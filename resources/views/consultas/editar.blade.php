@@ -1,14 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="custom-form">
     <h3>Editar Consulta para {{ $consulta->paciente->nombres }} {{ $consulta->paciente->apellidos }}</h3>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
 
     <form method="POST" action="{{ route('consultas.update', $consulta->id) }}">
         @csrf
         @method('PUT')
         <div class="form-group">
             <div class="form-item">
+                <input type="hidden" name="paciente_id" value="{{ $consulta->paciente_id }}">
                 <label for="peso" class="form-label">Peso</label>
                 <input type="number" step="0.01" class="form-control" id="peso" name="peso" value="{{ $consulta->peso }}" required>
             </div>

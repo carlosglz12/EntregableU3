@@ -70,28 +70,43 @@ class SecretariaController extends Controller
         return redirect()->route('secretarias.index')->with('success', 'Nueva secretaria agregada.');
     }
 
-    // Método para actualizar la información de una secretaria existente
     public function update(Request $request, Secretaria $secretaria): RedirectResponse
     {
-        // Validar los datos del formulario
         $request->validate([
             'nombres' => ['required', 'string', 'max:255'],
             'apellidos' => ['required', 'string', 'max:255'],
             'correo' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:secretarias,correo,' . $secretaria->id],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'telefono' => ['required', 'int'],
+            'telefono' => ['required', 'string'],
         ]);
-
-        // Actualizar la información de la secretaria en la base de datos
-        $secretaria->update([
+    
+        $data = [
             'nombres' => $request->nombres,
             'apellidos' => $request->apellidos,
             'correo' => $request->correo,
-            'password' => Hash::make($request->password),
             'telefono' => $request->telefono,
-        ]);
-
-        // Redirigir a la lista de secretarias con un mensaje de éxito
+        ];
+    
+        if ($request->filled('password')) {
+            $request->validate([
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
+            $data['password'] = Hash::make($request->password);
+        }
+    
+        $secretaria->update($data);
+    
+        // Actualizar el usuario correspondiente
+        $user = User::where('email', $secretaria->correo)->first();
+        if ($user) {
+            $user->update([
+                'name' => $secretaria->nombres . ' ' . $secretaria->apellidos,
+                'email' => $secretaria->correo,
+            ]);
+            if (isset($data['password'])) {
+                $user->update(['password' => $data['password']]);
+            }
+        }
+    
         return redirect()->route('secretarias.index')->with('success', 'Datos de la secretaria actualizados.');
     }
 

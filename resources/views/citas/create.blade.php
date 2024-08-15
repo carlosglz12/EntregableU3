@@ -2,24 +2,31 @@
 <link rel="stylesheet" href="{{ asset('css/formularios.css') }}">
 
 @section('content')
+
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session('success') }}',
+            confirmButtonColor: '#3085d6',
+        });
+    });
+</script>
+@endif
+
 @if(session('error'))
-    <script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         Swal.fire({
             icon: 'error',
             title: 'Error',
             text: '{{ session('error') }}',
+            confirmButtonColor: '#3085d6',
         });
-    </script>
-@endif
-
-@if(session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: '{{ session('success') }}',
-        });
-    </script>
+    });
+</script>
 @endif
 
 <form class="custom-form" method="POST" action="{{ route('citas.store') }}">
@@ -48,7 +55,7 @@
     <div class="form-group">
         <div class="form-item mb-5">
             <label for="fecha">Fecha</label>
-            <input type="date" id="fecha" name="fecha" required />
+            <input type="date" id="fecha" name="fecha" required min="{{ date('Y-m-d') }}" />
         </div>
         <div class="form-item mb-5">
             <label for="hora">Hora</label>
@@ -69,4 +76,26 @@
         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Agendar</button>
     </div>
 </form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('citaForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¿Quieres agendar esta cita?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, agendar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.submit();
+            }
+        });
+    });
+});
+</script>
 @endsection
